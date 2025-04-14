@@ -1,18 +1,20 @@
-#include "MemoryBlock.h"
 #include <fstream>
 #include <iostream>
 #include <queue>
 #include <string>
 #include <unordered_map>
 #include <vector>
+#include <vector>
+#include <utility>
+#include "MemoryBlock.h"
 
 /*
- * Project 3 asks us to change hoow jobs are loaded into memory
- * Previously, we loaded directlty into the ReadyQueue if memory was aviable
+ * Project 3 asks us to change how jobs are loaded into memory
+ * Previously, we loaded directly into the ReadyQueue if memory was available
  * Now, we've been asked to create a NewJobQueue and when there is enough memory
  * we will load them into the readyQueue In the case of not having enough
- * memeory to use we have to options: 1) Wait 2) Coalesce memory (more on that
- * below) We then contiune like normal
+ * memory to use we have to options: 1) Wait 2) Coalesce memory (more on that
+ * below) We then continue like normal
  *
  * Lets say we have 1000 memory cells
  * Process 1 starts at 0 and has a size of 200 so now there are 800 free blocks
@@ -25,7 +27,7 @@
  * we then load process 3 from 750 - 1000 and are now out of memory
  *
  * Say we have a new process 4 arrives and needs 180 memory cells to run,
- * We don't have this space in a single cohensive block of memory and will need
+ * We don't have this space in a single cohesive block of memory and will need
  * to Combine the free blocks into one unit to load process 4 and it would need
  * to wait for memory to free up
  *
@@ -36,7 +38,7 @@
  * the block after process 2 but before process 3
  *
  * 150 [gap after process 1] + 100 [gap after process 2] = 250 units of free
- * space If we make this a cohesvie block we can load process 4
+ * space If we make this a cohesive block we can load process 4
  *
  * NEW STRUCTURES:
  * new_job_queue<PCB> // this will store the jobs and load them into the
@@ -63,6 +65,9 @@ void load_jobs_to_memory(std::queue<PCB> &new_job_queue,
 void execute_cpu(int start_address, int *main_memory, MemoryBlock *&memory_head,
                  std::queue<PCB> &new_job_queue, std::queue<int> &ready_queue);
 void check_io_waiting_queue(std::queue<int> &ready_queue, int *main_memory);
+
+bool allocate_segments(MemoryBlock *&memory_head, int total_memory_needed, int &segment_table_start_address, std::vector<std::pair<int, int>> &segment_table_entries);
+
 
 struct PCB
 {
@@ -293,20 +298,21 @@ void coalesce_memory(MemoryBlock *&memory_head)
     while (current && current->next)
     {
         MemoryBlock *next = current->next;
-        if (current->process_id == -1 && next->process_id == -1)
+
+        // Merge only if both and free AND adjacent in memory
+        if (current->process_id == -1 && next->process_id == -1 &&current->start_address + current->size == next->start_address)
         {
             current->size += next->size;
             current->next = next->next;
             delete next;
             continue;
         }
+
         current = current->next;
     }
 }
 
-void load_jobs_to_memory(std::queue<PCB> &new_job_queue,
-                         std::queue<int> &ready_queue, int *main_memory,
-                         MemoryBlock *&memory_head)
+void load_jobs_to_memory(std::queue<PCB> &new_job_queue, std::queue<int> &ready_queue, int *main_memory,MemoryBlock *&memory_head)
 {
     int new_job_queue_size = static_cast<int>(new_job_queue.size());
     std::queue<PCB> temp_queue;
@@ -642,21 +648,148 @@ void check_io_waiting_queue(std::queue<int> &ready_queue, int *main_memory)
     }
 }
 
-bool allocate_segments(MemoryBlock *&memory_head, int total_memory_needed,
-                       int &segment_table_start_address,
-                       std::vector<std::pair<int, int>> &segment_table_entries)
+void free_memory(MemoryBlock *&memory_head, int start_address, int size)
 {
-    // Let's give coalesce ago
+    MemoryBlock *new_block = new MemoryBlock(-1, start_address, size);
+
+    // If the list is empty, insert as head
+    if (!memory_head)
+    {
+        memory_head = new_block;
+        return;
+    }
+
+    MemoryBlock *current = memory_head;
+    MemoryBlock *prev = nullptr;
+
+    // Find the correct spot to insert based on start address
+    while (current && current->start_address < start_address)
+    {
+        prev = current;
+        current = current->next;
+    }
+
+    // Insert new_block into the list
+    new_block->next = current;
+
+    if (prev)
+    {
+        prev->next = new_block;
+    }
+    else
+    {
+        memory_head = new_block;
+    }
+
+    // Now try to coalesce (merge) with adjacent free blocks
+    coalesce_memory(memory_head);
+}
+
+bool allocate_segments(MemoryBlock *&memory_head,int total_memory_needed,int &segment_table_start_address,std::vector<std::pair<int, int>> &segment_table_entries)
+{
+    // Step 1: Coalesce memory before allocation attempt
     coalesce_memory(memory_head);
 
-    // step 2: Try and find a block >= 13 for the segment table
+    // Step 2: Find a block big enough to store the segment table (13 integers)
     MemoryBlock *current = memory_head;
-    MemoryBlock *previous = nullptr;
-
-    bool found_segment_table_block = false;
+    MemoryBlock *prev = nullptr;
     segment_table_start_address = -1;
+    bool found_segment_table_block = false;
 
     while (current)
     {
+        if (current->process_id == -1 && current->size >= 13)
+        {
+            // Allocate space for segment table at start of block
+            segment_table_start_address = current->start_address;
+
+            // Adjust current block to reflect used space
+            current->start_address += 13;
+            current->size -= 13;
+
+            // If this completely consumed the block
+            if (current->size == 0)
+            {
+                if (prev)
+                    prev->next = current->next;
+                else
+                    memory_head = current->next;
+                delete current;
+                current = (prev ? prev->next : memory_head);
+            }
+
+            // Insert a new block for the segment table (marked as reserved with process_id = -2)
+            MemoryBlock *segment_table_block = new MemoryBlock(-2, segment_table_start_address, 13);
+            segment_table_block->next = memory_head;
+            memory_head = segment_table_block;
+
+            found_segment_table_block = true;
+            break;
+        }
+
+        prev = current;
+        current = current->next;
     }
+
+    if (!found_segment_table_block)
+    {
+        return false; // Can't allocate space for segment table
+    }
+
+    // Step 3: Try to allocate remaining memory for segments
+    int remaining = total_memory_needed;
+    current = memory_head;
+    prev = nullptr;
+
+    while (current && remaining > 0)
+    {
+        if (current->process_id == -1)
+        {
+            int alloc_size = std::min(current->size, remaining);
+            int alloc_start = current->start_address;
+
+            // Record this segment's allocation
+            segment_table_entries.emplace_back(alloc_start, alloc_size);
+
+            // Adjust block
+            current->start_address += alloc_size;
+            current->size -= alloc_size;
+            remaining -= alloc_size;
+
+            // If block is fully used, remove it
+            if (current->size == 0)
+            {
+                if (prev)
+                    prev->next = current->next;
+                else
+                    memory_head = current->next;
+
+                MemoryBlock *to_delete = current;
+                current = current->next;
+                delete to_delete;
+                continue;
+            }
+        }
+
+        prev = current;
+        current = current->next;
+    }
+
+    // Not enough memory → clean up and fail
+    if (remaining > 0)
+    {
+        // Free segment table block
+        free_memory(memory_head, segment_table_start_address, 13);
+
+        // Free all allocated segment entries
+        for (const auto &entry : segment_table_entries)
+        {
+            free_memory(memory_head, entry.first, entry.second);
+        }
+
+        segment_table_entries.clear();
+        return false;
+    }
+
+    return true;
 }
