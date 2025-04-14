@@ -1,67 +1,67 @@
-Process 1 loaded into memory at address 0 with size 409.
-Process 2 loaded into memory at address 409 with size 507.
-Process 3 loaded into memory at address 916 with size 341.
-Process 4 loaded into memory at address 1257 with size 473.
+Process 1 loaded with segment table stored at physical address 0
+Process 2 loaded with segment table stored at physical address 412
+Process 3 loaded with segment table stored at physical address 922
+Process 4 loaded with segment table stored at physical address 1266
 Insufficient memory for Process 5. Attempting memory coalescing.
 Process 5 waiting in NewJobQueue due to insufficient memory.
 0 : 1
 1 : 1
 2 : 0
-3 : 10
-4 : 27
+3 : 13
+4 : 1716168650
 5 : 399
 6 : 0
 7 : 0
 8 : 399
 9 : 0
-10 : 4
-11 : 3
-12 : 3
-13 : 3
-14 : 2
+10 : 1
+11 : 13
+12 : 399
+13 : 4
+14 : 3
 15 : 3
-16 : 1
-17 : 4
-18 : 4
-19 : 4
-20 : 3
-21 : 3
-22 : 2
+16 : 3
+17 : 2
+18 : 3
+19 : 1
+20 : 4
+21 : 4
+22 : 4
 23 : 3
 24 : 3
-25 : 1
-26 : 1
-27 : 395
-28 : 100
-29 : 358
-30 : 13
-31 : 277
-32 : 1
-33 : 328
-34 : 6
-35 : 24
-36 : 216
+25 : 2
+26 : 3
+27 : 3
+28 : 1
+29 : 1
+30 : 395
+31 : 100
+32 : 358
+33 : 13
+34 : 277
+35 : 1
+36 : 328
 37 : 6
-38 : 6
-39 : 333
-40 : 343
-41 : 321
-42 : 18
-43 : 395
-44 : 79
-45 : 230
-46 : 9
-47 : 60
-48 : 285
-49 : 41
-50 : 303
-51 : 6
-52 : 12
-53 : 9
-54 : 10
-55 : -1
-56 : -1
-57 : -1
+38 : 24
+39 : 216
+40 : 6
+41 : 6
+42 : 333
+43 : 343
+44 : 321
+45 : 18
+46 : 395
+47 : 79
+48 : 230
+49 : 9
+50 : 60
+51 : 285
+52 : 41
+53 : 303
+54 : 6
+55 : 12
+56 : 9
+57 : 10
 58 : -1
 59 : -1
 60 : -1
@@ -413,37 +413,37 @@ Process 5 waiting in NewJobQueue due to insufficient memory.
 406 : -1
 407 : -1
 408 : -1
-409 : 2
-410 : 1
-411 : 0
-412 : 419
-413 : 426
-414 : 497
-415 : 0
-416 : 0
+409 : -1
+410 : -1
+411 : -1
+412 : 2
+413 : 1
+414 : 0
+415 : 425
+416 : 1718790050
 417 : 497
-418 : 409
-419 : 2
-420 : 2
-421 : 3
-422 : 2
-423 : 2
-424 : 2
+418 : 0
+419 : 0
+420 : 497
+421 : 412
+422 : 1
+423 : 425
+424 : 497
 425 : 2
-426 : 8
-427 : 2
-428 : 37
-429 : 344
-430 : 5
-431 : 9
-432 : 3
-433 : 8
-434 : -1
-435 : -1
-436 : -1
-437 : -1
-438 : -1
-439 : -1
+426 : 2
+427 : 3
+428 : 2
+429 : 2
+430 : 2
+431 : 2
+432 : 8
+433 : 2
+434 : 37
+435 : 344
+436 : 5
+437 : 9
+438 : 3
+439 : 8
 440 : -1
 441 : -1
 442 : -1
@@ -920,73 +920,73 @@ Process 5 waiting in NewJobQueue due to insufficient memory.
 913 : -1
 914 : -1
 915 : -1
-916 : 3
-917 : 1
-918 : 0
-919 : 926
-920 : 946
-921 : 331
-922 : 0
-923 : 0
-924 : 331
-925 : 916
-926 : 1
-927 : 4
-928 : 4
-929 : 4
-930 : 2
-931 : 2
+916 : -1
+917 : -1
+918 : -1
+919 : -1
+920 : -1
+921 : -1
+922 : 3
+923 : 1
+924 : 0
+925 : 935
+926 : 1716168650
+927 : 331
+928 : 0
+929 : 0
+930 : 331
+931 : 922
 932 : 1
-933 : 2
-934 : 2
-935 : 3
-936 : 1
+933 : 935
+934 : 331
+935 : 1
+936 : 4
 937 : 4
-938 : 2
+938 : 4
 939 : 2
-940 : 1
+940 : 2
 941 : 1
 942 : 2
-943 : 3
-944 : 1
-945 : 2
-946 : 2
-947 : 15
-948 : 168
-949 : 216
-950 : 288
-951 : 1
-952 : 7
+943 : 2
+944 : 3
+945 : 1
+946 : 4
+947 : 2
+948 : 2
+949 : 1
+950 : 1
+951 : 2
+952 : 3
 953 : 1
-954 : 6
-955 : 8
-956 : 4
-957 : 18
-958 : 296
-959 : 2
-960 : 13
-961 : 298
-962 : 6
-963 : 10
-964 : 4
-965 : 12
-966 : 1
-967 : 10
-968 : 6
-969 : 12
-970 : 201
-971 : 7
-972 : 14
-973 : 8
-974 : -1
-975 : -1
-976 : -1
-977 : -1
-978 : -1
-979 : -1
-980 : -1
-981 : -1
-982 : -1
+954 : 2
+955 : 2
+956 : 15
+957 : 168
+958 : 216
+959 : 288
+960 : 1
+961 : 7
+962 : 1
+963 : 6
+964 : 8
+965 : 4
+966 : 18
+967 : 296
+968 : 2
+969 : 13
+970 : 298
+971 : 6
+972 : 10
+973 : 4
+974 : 12
+975 : 1
+976 : 10
+977 : 6
+978 : 12
+979 : 201
+980 : 7
+981 : 14
+982 : 8
 983 : -1
 984 : -1
 985 : -1
@@ -1261,71 +1261,71 @@ Process 5 waiting in NewJobQueue due to insufficient memory.
 1254 : -1
 1255 : -1
 1256 : -1
-1257 : 4
-1258 : 1
-1259 : 0
-1260 : 1267
-1261 : 1284
-1262 : 463
-1263 : 0
-1264 : 0
-1265 : 463
-1266 : 1257
-1267 : 2
-1268 : 3
-1269 : 4
-1270 : 2
-1271 : 3
-1272 : 2
-1273 : 4
-1274 : 1
-1275 : 4
-1276 : 4
-1277 : 1
-1278 : 1
-1279 : 1
-1280 : 1
-1281 : 3
-1282 : 1
-1283 : 4
-1284 : 6
-1285 : 35
-1286 : 376
-1287 : 327
-1288 : 9
-1289 : 27
-1290 : 253
-1291 : 6
-1292 : 243
-1293 : 1
-1294 : 6
-1295 : 234
-1296 : 428
-1297 : 9
-1298 : 15
-1299 : 3
-1300 : 13
-1301 : 8
-1302 : 15
+1257 : -1
+1258 : -1
+1259 : -1
+1260 : -1
+1261 : -1
+1262 : -1
+1263 : -1
+1264 : -1
+1265 : -1
+1266 : 4
+1267 : 1
+1268 : 0
+1269 : 1279
+1270 : 1717674381
+1271 : 463
+1272 : 0
+1273 : 0
+1274 : 463
+1275 : 1266
+1276 : 1
+1277 : 1279
+1278 : 463
+1279 : 2
+1280 : 3
+1281 : 4
+1282 : 2
+1283 : 3
+1284 : 2
+1285 : 4
+1286 : 1
+1287 : 4
+1288 : 4
+1289 : 1
+1290 : 1
+1291 : 1
+1292 : 1
+1293 : 3
+1294 : 1
+1295 : 4
+1296 : 6
+1297 : 35
+1298 : 376
+1299 : 327
+1300 : 9
+1301 : 27
+1302 : 253
 1303 : 6
-1304 : 14
-1305 : 35
-1306 : 267
-1307 : 5
-1308 : 5
-1309 : 332
-1310 : -1
-1311 : -1
-1312 : -1
-1313 : -1
-1314 : -1
-1315 : -1
-1316 : -1
-1317 : -1
-1318 : -1
-1319 : -1
-1320 : -1
-1321 : -1
+1304 : 243
+1305 : 1
+1306 : 6
+1307 : 234
+1308 : 428
+1309 : 9
+1310 : 15
+1311 : 3
+1312 : 13
+1313 : 8
+1314 : 15
+1315 : 6
+1316 : 14
+1317 : 35
+1318 : 267
+1319 : 5
+1320 : 5
+1321 : 332
 1322 : -1
 1323 : -1
 1324 : -1
@@ -2053,492 +2053,3 @@ Process 5 waiting in NewJobQueue due to insufficient memory.
 2046 : -1
 2047 : -1
 Process 1 has moved to Running.
-loaded
-stored
-Process 1 has a TimeOUT interrupt and is moved to the ReadyQueue.
-Process 2 has moved to Running.
-Process 2 issued an IOInterrupt and moved to the IOWaitingQueue.
-Process 3 has moved to Running.
-compute
-Process 3 has a TimeOUT interrupt and is moved to the ReadyQueue.
-print
-Process 2 completed I/O and is moved to the ReadyQueue.
-Process 4 has moved to Running.
-Process 4 issued an IOInterrupt and moved to the IOWaitingQueue.
-Process 1 has moved to Running.
-stored
-stored
-Process 1 has a TimeOUT interrupt and is moved to the ReadyQueue.
-Process 3 has moved to Running.
-loaded
-loaded
-Process 3 has a TimeOUT interrupt and is moved to the ReadyQueue.
-print
-Process 4 completed I/O and is moved to the ReadyQueue.
-Process 2 has moved to Running.
-Process 2 issued an IOInterrupt and moved to the IOWaitingQueue.
-Process 1 has moved to Running.
-Process 1 issued an IOInterrupt and moved to the IOWaitingQueue.
-print
-Process 2 completed I/O and is moved to the ReadyQueue.
-Process 3 has moved to Running.
-loaded
-Process 3 issued an IOInterrupt and moved to the IOWaitingQueue.
-Process 4 has moved to Running.
-stored
-loaded
-Process 4 has a TimeOUT interrupt and is moved to the ReadyQueue.
-print
-Process 1 completed I/O and is moved to the ReadyQueue.
-print
-Process 3 completed I/O and is moved to the ReadyQueue.
-Process 2 has moved to Running.
-stored
-Process 2 issued an IOInterrupt and moved to the IOWaitingQueue.
-Process 4 has moved to Running.
-Process 4 issued an IOInterrupt and moved to the IOWaitingQueue.
-Process 1 has moved to Running.
-stored
-compute
-Process 1 has a TimeOUT interrupt and is moved to the ReadyQueue.
-print
-Process 2 completed I/O and is moved to the ReadyQueue.
-print
-Process 4 completed I/O and is moved to the ReadyQueue.
-Process 3 has moved to Running.
-Process 3 issued an IOInterrupt and moved to the IOWaitingQueue.
-Process 1 has moved to Running.
-loaded
-loaded
-Process 1 has a TimeOUT interrupt and is moved to the ReadyQueue.
-Process 2 has moved to Running.
-Process 2 issued an IOInterrupt and moved to the IOWaitingQueue.
-Process 4 has moved to Running.
-stored
-Process 4 issued an IOInterrupt and moved to the IOWaitingQueue.
-print
-Process 3 completed I/O and is moved to the ReadyQueue.
-Process 1 has moved to Running.
-loaded
-stored
-Process 1 has a TimeOUT interrupt and is moved to the ReadyQueue.
-Process 3 has moved to Running.
-compute
-Process 3 has a TimeOUT interrupt and is moved to the ReadyQueue.
-print
-Process 2 completed I/O and is moved to the ReadyQueue.
-print
-Process 4 completed I/O and is moved to the ReadyQueue.
-Process 1 has moved to Running.
-stored
-Process 1 issued an IOInterrupt and moved to the IOWaitingQueue.
-Process 3 has moved to Running.
-Process 3 issued an IOInterrupt and moved to the IOWaitingQueue.
-Process 2 has moved to Running.
-Process 2 issued an IOInterrupt and moved to the IOWaitingQueue.
-Process 4 has moved to Running.
-loaded
-compute
-Process 4 has a TimeOUT interrupt and is moved to the ReadyQueue.
-print
-Process 1 completed I/O and is moved to the ReadyQueue.
-print
-Process 3 completed I/O and is moved to the ReadyQueue.
-print
-Process 2 completed I/O and is moved to the ReadyQueue.
-Process 4 has moved to Running.
-loaded
-loaded
-Process 4 has a TimeOUT interrupt and is moved to the ReadyQueue.
-Process 1 has moved to Running.
-stored
-stored
-Process 1 has a TimeOUT interrupt and is moved to the ReadyQueue.
-Process 3 has moved to Running.
-Process 3 issued an IOInterrupt and moved to the IOWaitingQueue.
-Process 2 has moved to Running.
-Process 2 issued an IOInterrupt and moved to the IOWaitingQueue.
-Process 4 has moved to Running.
-compute
-Process 4 has a TimeOUT interrupt and is moved to the ReadyQueue.
-print
-Process 3 completed I/O and is moved to the ReadyQueue.
-print
-Process 2 completed I/O and is moved to the ReadyQueue.
-Process 1 has moved to Running.
-compute
-Process 1 has a TimeOUT interrupt and is moved to the ReadyQueue.
-Process 4 has moved to Running.
-compute
-Process 4 has a TimeOUT interrupt and is moved to the ReadyQueue.
-Process 3 has moved to Running.
-stored
-compute
-Process 3 has a TimeOUT interrupt and is moved to the ReadyQueue.
-Process 2 has moved to Running.
-Process ID: 2
-State: TERMINATED
-Program Counter: 418
-Instruction Base: 419
-Data Base: 426
-Memory Limit: 497
-CPU Cycles Used: 36
-Register Value: 37
-Max Memory Needed: 497
-Main Memory Base: 409
-Total CPU Cycles Consumed: 167
-Process 2 terminated. Entered running state at: 6. Terminated at: 173. Total Execution Time: 167.
-Process 2 terminated and released memory from 409 to 915.
-Process 5 loaded into memory at address 409 with size 506.
-Process 6 loaded into memory at address 1730 with size 307.
-Insufficient memory for Process 7. Attempting memory coalescing.
-Process 7 waiting in NewJobQueue due to insufficient memory.
-Process 1 has moved to Running.
-compute
-Process ID: 1
-State: TERMINATED
-Program Counter: 9
-Instruction Base: 10
-Data Base: 27
-Memory Limit: 399
-CPU Cycles Used: 55
-Register Value: 41
-Max Memory Needed: 399
-Main Memory Base: 0
-Total CPU Cycles Consumed: 183
-Process 1 terminated. Entered running state at: 2. Terminated at: 185. Total Execution Time: 183.
-Process 1 terminated and released memory from 0 to 408.
-Process 7 loaded into memory at address 0 with size 275.
-Insufficient memory for Process 8. Attempting memory coalescing.
-Process 8 waiting in NewJobQueue due to insufficient memory.
-Process 4 has moved to Running.
-compute
-Process 4 has a TimeOUT interrupt and is moved to the ReadyQueue.
-Process 3 has moved to Running.
-loaded
-Process 3 issued an IOInterrupt and moved to the IOWaitingQueue.
-Process 5 has moved to Running.
-loaded
-Process 5 issued an IOInterrupt and moved to the IOWaitingQueue.
-Process 6 has moved to Running.
-compute
-Process 6 has a TimeOUT interrupt and is moved to the ReadyQueue.
-print
-Process 3 completed I/O and is moved to the ReadyQueue.
-print
-Process 5 completed I/O and is moved to the ReadyQueue.
-Process 7 has moved to Running.
-loaded
-Process 7 issued an IOInterrupt and moved to the IOWaitingQueue.
-Process 4 has moved to Running.
-compute
-Process 4 has a TimeOUT interrupt and is moved to the ReadyQueue.
-print
-Process 7 completed I/O and is moved to the ReadyQueue.
-Process 6 has moved to Running.
-loaded
-loaded
-Process 6 has a TimeOUT interrupt and is moved to the ReadyQueue.
-Process 3 has moved to Running.
-Process 3 issued an IOInterrupt and moved to the IOWaitingQueue.
-Process 5 has moved to Running.
-Process 5 issued an IOInterrupt and moved to the IOWaitingQueue.
-Process 4 has moved to Running.
-stored
-compute
-Process 4 has a TimeOUT interrupt and is moved to the ReadyQueue.
-print
-Process 3 completed I/O and is moved to the ReadyQueue.
-Process 7 has moved to Running.
-Process 7 issued an IOInterrupt and moved to the IOWaitingQueue.
-print
-Process 5 completed I/O and is moved to the ReadyQueue.
-Process 6 has moved to Running.
-Process 6 issued an IOInterrupt and moved to the IOWaitingQueue.
-print
-Process 7 completed I/O and is moved to the ReadyQueue.
-Process 4 has moved to Running.
-loaded
-Process ID: 4
-State: TERMINATED
-Program Counter: 1266
-Instruction Base: 1267
-Data Base: 1284
-Memory Limit: 463
-CPU Cycles Used: 97
-Register Value: -1
-Max Memory Needed: 463
-Main Memory Base: 1257
-Total CPU Cycles Consumed: 238
-Process 4 terminated. Entered running state at: 25. Terminated at: 263. Total Execution Time: 238.
-Process 4 terminated and released memory from 1257 to 1729.
-Process 8 loaded into memory at address 1257 with size 427.
-Insufficient memory for Process 9. Attempting memory coalescing.
-Process 9 waiting in NewJobQueue due to insufficient memory.
-Process 3 has moved to Running.
-compute
-Process 3 has a TimeOUT interrupt and is moved to the ReadyQueue.
-print
-Process 6 completed I/O and is moved to the ReadyQueue.
-Process 5 has moved to Running.
-loaded
-loaded
-Process 5 has a TimeOUT interrupt and is moved to the ReadyQueue.
-Process 7 has moved to Running.
-loaded
-compute
-Process 7 has a TimeOUT interrupt and is moved to the ReadyQueue.
-Process 8 has moved to Running.
-compute
-Process 8 has a TimeOUT interrupt and is moved to the ReadyQueue.
-Process 3 has moved to Running.
-compute
-Process 3 has a TimeOUT interrupt and is moved to the ReadyQueue.
-Process 6 has moved to Running.
-stored
-stored
-Process 6 has a TimeOUT interrupt and is moved to the ReadyQueue.
-Process 5 has moved to Running.
-loaded
-loaded
-Process 5 has a TimeOUT interrupt and is moved to the ReadyQueue.
-Process 7 has moved to Running.
-loaded
-Process ID: 7
-State: TERMINATED
-Program Counter: 9
-Instruction Base: 10
-Data Base: 16
-Memory Limit: 265
-CPU Cycles Used: 18
-Register Value: -1
-Max Memory Needed: 265
-Main Memory Base: 0
-Total CPU Cycles Consumed: 105
-Process 7 terminated. Entered running state at: 223. Terminated at: 328. Total Execution Time: 105.
-Process 7 terminated and released memory from 0 to 274.
-Process 9 loaded into memory at address 0 with size 251.
-Insufficient memory for Process 10. Attempting memory coalescing.
-Process 10 waiting in NewJobQueue due to insufficient memory.
-Process 8 has moved to Running.
-compute
-Process 8 has a TimeOUT interrupt and is moved to the ReadyQueue.
-Process 3 has moved to Running.
-Process 3 issued an IOInterrupt and moved to the IOWaitingQueue.
-Process 6 has moved to Running.
-compute
-Process ID: 6
-State: TERMINATED
-Program Counter: 1739
-Instruction Base: 1740
-Data Base: 1747
-Memory Limit: 297
-CPU Cycles Used: 30
-Register Value: 5
-Max Memory Needed: 297
-Main Memory Base: 1730
-Total CPU Cycles Consumed: 145
-Process 6 terminated. Entered running state at: 210. Terminated at: 355. Total Execution Time: 145.
-Process 6 terminated and released memory from 1730 to 2036.
-Insufficient memory for Process 10. Attempting memory coalescing.
-Process 10 waiting in NewJobQueue due to insufficient memory.
-print
-Process 3 completed I/O and is moved to the ReadyQueue.
-Process 5 has moved to Running.
-compute
-Process 5 has a TimeOUT interrupt and is moved to the ReadyQueue.
-Process 9 has moved to Running.
-loaded
-loaded
-Process 9 has a TimeOUT interrupt and is moved to the ReadyQueue.
-Process 8 has moved to Running.
-loaded
-compute
-Process 8 has a TimeOUT interrupt and is moved to the ReadyQueue.
-Process 3 has moved to Running.
-stored
-compute
-Process 3 has a TimeOUT interrupt and is moved to the ReadyQueue.
-Process 5 has moved to Running.
-Process 5 issued an IOInterrupt and moved to the IOWaitingQueue.
-Process 9 has moved to Running.
-compute
-Process 9 has a TimeOUT interrupt and is moved to the ReadyQueue.
-print
-Process 5 completed I/O and is moved to the ReadyQueue.
-Process 8 has moved to Running.
-stored
-stored
-Process 8 has a TimeOUT interrupt and is moved to the ReadyQueue.
-Process 3 has moved to Running.
-Process 3 issued an IOInterrupt and moved to the IOWaitingQueue.
-Process 9 has moved to Running.
-stored
-compute
-Process 9 has a TimeOUT interrupt and is moved to the ReadyQueue.
-print
-Process 3 completed I/O and is moved to the ReadyQueue.
-Process 5 has moved to Running.
-stored
-Process 5 issued an IOInterrupt and moved to the IOWaitingQueue.
-Process 8 has moved to Running.
-stored
-stored
-Process 8 has a TimeOUT interrupt and is moved to the ReadyQueue.
-Process 9 has moved to Running.
-loaded
-stored
-Process 9 has a TimeOUT interrupt and is moved to the ReadyQueue.
-print
-Process 5 completed I/O and is moved to the ReadyQueue.
-Process 3 has moved to Running.
-Process ID: 3
-State: TERMINATED
-Program Counter: 925
-Instruction Base: 926
-Data Base: 946
-Memory Limit: 331
-CPU Cycles Used: 126
-Register Value: 12
-Max Memory Needed: 331
-Main Memory Base: 916
-Total CPU Cycles Consumed: 435
-Process 3 terminated. Entered running state at: 8. Terminated at: 443. Total Execution Time: 435.
-Process 3 terminated and released memory from 916 to 1256.
-Insufficient memory for Process 10. Attempting memory coalescing.
-Process 10 waiting in NewJobQueue due to insufficient memory.
-Process 8 has moved to Running.
-compute
-Process 8 has a TimeOUT interrupt and is moved to the ReadyQueue.
-Process 9 has moved to Running.
-Process 9 issued an IOInterrupt and moved to the IOWaitingQueue.
-Process 5 has moved to Running.
-loaded
-Process 5 issued an IOInterrupt and moved to the IOWaitingQueue.
-Process 8 has moved to Running.
-compute
-Process 8 has a TimeOUT interrupt and is moved to the ReadyQueue.
-print
-Process 9 completed I/O and is moved to the ReadyQueue.
-print
-Process 5 completed I/O and is moved to the ReadyQueue.
-Process 8 has moved to Running.
-stored
-loaded
-Process ID: 8
-State: TERMINATED
-Program Counter: 1266
-Instruction Base: 1267
-Data Base: 1279
-Memory Limit: 417
-CPU Cycles Used: 56
-Register Value: -1
-Max Memory Needed: 417
-Main Memory Base: 1257
-Total CPU Cycles Consumed: 179
-Process 8 terminated. Entered running state at: 293. Terminated at: 472. Total Execution Time: 179.
-Process 8 terminated and released memory from 1257 to 1683.
-Insufficient memory for Process 10. Attempting memory coalescing.
-Memory coalesced. Process 10 can now be loaded.
-Process 10 loaded into memory at address 915 with size 488.
-Process 9 has moved to Running.
-stored
-Process ID: 9
-State: TERMINATED
-Program Counter: 9
-Instruction Base: 10
-Data Base: 19
-Memory Limit: 241
-CPU Cycles Used: 29
-Register Value: 64
-Max Memory Needed: 241
-Main Memory Base: 0
-Total CPU Cycles Consumed: 107
-Process 9 terminated. Entered running state at: 368. Terminated at: 475. Total Execution Time: 107.
-Process 9 terminated and released memory from 0 to 250.
-Process 5 has moved to Running.
-compute
-Process 5 has a TimeOUT interrupt and is moved to the ReadyQueue.
-Process 10 has moved to Running.
-compute
-Process 10 has a TimeOUT interrupt and is moved to the ReadyQueue.
-Process 5 has moved to Running.
-stored
-Process 5 issued an IOInterrupt and moved to the IOWaitingQueue.
-Process 10 has moved to Running.
-Process 10 issued an IOInterrupt and moved to the IOWaitingQueue.
-print
-Process 5 completed I/O and is moved to the ReadyQueue.
-Process 5 has moved to Running.
-compute
-Process 5 has a TimeOUT interrupt and is moved to the ReadyQueue.
-print
-Process 10 completed I/O and is moved to the ReadyQueue.
-Process 5 has moved to Running.
-compute
-Process 5 has a TimeOUT interrupt and is moved to the ReadyQueue.
-Process 10 has moved to Running.
-compute
-Process 10 has a TimeOUT interrupt and is moved to the ReadyQueue.
-Process 5 has moved to Running.
-stored
-Process ID: 5
-State: TERMINATED
-Program Counter: 418
-Instruction Base: 419
-Data Base: 438
-Memory Limit: 496
-CPU Cycles Used: 84
-Register Value: 68
-Max Memory Needed: 496
-Main Memory Base: 409
-Total CPU Cycles Consumed: 345
-Process 5 terminated. Entered running state at: 207. Terminated at: 552. Total Execution Time: 345.
-Process 5 terminated and released memory from 409 to 914.
-Process 10 has moved to Running.
-Process 10 issued an IOInterrupt and moved to the IOWaitingQueue.
-print
-Process 10 completed I/O and is moved to the ReadyQueue.
-Process 10 has moved to Running.
-loaded
-stored
-Process 10 has a TimeOUT interrupt and is moved to the ReadyQueue.
-Process 10 has moved to Running.
-stored
-compute
-Process 10 has a TimeOUT interrupt and is moved to the ReadyQueue.
-Process 10 has moved to Running.
-loaded
-Process 10 issued an IOInterrupt and moved to the IOWaitingQueue.
-print
-Process 10 completed I/O and is moved to the ReadyQueue.
-Process 10 has moved to Running.
-compute
-Process 10 has a TimeOUT interrupt and is moved to the ReadyQueue.
-Process 10 has moved to Running.
-Process 10 issued an IOInterrupt and moved to the IOWaitingQueue.
-print
-Process 10 completed I/O and is moved to the ReadyQueue.
-Process 10 has moved to Running.
-compute
-Process 10 has a TimeOUT interrupt and is moved to the ReadyQueue.
-Process 10 has moved to Running.
-compute
-Process 10 has a TimeOUT interrupt and is moved to the ReadyQueue.
-Process 10 has moved to Running.
-stored
-compute
-Process ID: 10
-State: TERMINATED
-Program Counter: 924
-Instruction Base: 925
-Data Base: 941
-Memory Limit: 478
-CPU Cycles Used: 97
-Register Value: 30
-Max Memory Needed: 478
-Main Memory Base: 915
-Total CPU Cycles Consumed: 149
-Process 10 terminated. Entered running state at: 491. Terminated at: 640. Total Execution Time: 149.
-Process 10 terminated and released memory from 915 to 1402.
-Total CPU time used: 642.
