@@ -321,23 +321,18 @@ void load_jobs_to_memory(std::queue<PCB> &new_job_queue, std::queue<int> &ready_
         int segment_table_start_address;
         std::vector<std::pair<int, int>> segment_table_entries;
 
-        bool success = allocate_segments(
-            memory_head,
-            process.max_memory_needed,
-            segment_table_start_address,
-            segment_table_entries);
+        // needed to move this before I try anything 
+        coalesce_memory(memory_head);
+
+        bool success = allocate_segments(memory_head,process.max_memory_needed,segment_table_start_address,segment_table_entries);
 
         if (!success)
         {
             std::cout << "Insufficient memory for Process "<< process.process_id << ". Attempting memory coalescing." << std::endl;
 
-            coalesce_memory(memory_head);
+            
 
-            success = allocate_segments(
-                memory_head,
-                process.max_memory_needed,
-                segment_table_start_address,
-                segment_table_entries);
+            success = allocate_segments(memory_head,process.max_memory_needed,segment_table_start_address,segment_table_entries);
 
             if (!success)
             {

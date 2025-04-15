@@ -8,7 +8,7 @@ Process 5 waiting in NewJobQueue due to insufficient memory.
 1 : 1
 2 : 0
 3 : 23
-4 : 948097308
+4 : -486029081
 5 : 399
 6 : 0
 7 : 0
@@ -430,7 +430,7 @@ Process 5 waiting in NewJobQueue due to insufficient memory.
 423 : 1
 424 : 0
 425 : 445
-426 : 951832835
+426 : -484521730
 427 : 497
 428 : 0
 429 : 0
@@ -950,7 +950,7 @@ Process 5 waiting in NewJobQueue due to insufficient memory.
 943 : 1
 944 : 0
 945 : 965
-946 : 949211435
+946 : -485046026
 947 : 331
 948 : 0
 949 : 0
@@ -1304,7 +1304,7 @@ Process 5 waiting in NewJobQueue due to insufficient memory.
 1297 : 1
 1298 : 0
 1299 : 1319
-1300 : 951570209
+1300 : -484193754
 1301 : 463
 1302 : 0
 1303 : 0
@@ -2053,3 +2053,192 @@ Process 5 waiting in NewJobQueue due to insufficient memory.
 2046 : -1
 2047 : -1
 Process 1 has moved to Running.
+Process ID: 1
+State: TERMINATED
+Program Counter: 22
+Instruction Base: 23
+Data Base: -486029081
+Memory Limit: 399
+CPU Cycles Used: 0
+Register Value: 0
+Max Memory Needed: 399
+Main Memory Base: 0
+Total CPU Cycles Consumed: 0
+Process 1 terminated. Entered running state at: 2. Terminated at: 2. Total Execution Time: 0.
+Process 1 terminated and freed memory blocks.
+Insufficient memory for Process 5. Attempting memory coalescing.
+Process 5 waiting in NewJobQueue due to insufficient memory.
+Process 2 has moved to Running.
+Process ID: 2
+State: TERMINATED
+Program Counter: 444
+Instruction Base: 445
+Data Base: -484521730
+Memory Limit: 497
+CPU Cycles Used: 0
+Register Value: 0
+Max Memory Needed: 497
+Main Memory Base: 422
+Total CPU Cycles Consumed: 0
+Process 2 terminated. Entered running state at: 4. Terminated at: 4. Total Execution Time: 0.
+Process 2 terminated and freed memory blocks.
+Process 5 loaded with segment table stored at physical address 1
+Insufficient memory for Process 6. Attempting memory coalescing.
+Process 6 waiting in NewJobQueue due to insufficient memory.
+Process 3 has moved to Running.
+Process ID: 3
+State: TERMINATED
+Program Counter: 964
+Instruction Base: 965
+Data Base: -485046026
+Memory Limit: 331
+CPU Cycles Used: 0
+Register Value: 0
+Max Memory Needed: 331
+Main Memory Base: 942
+Total CPU Cycles Consumed: 0
+Process 3 terminated. Entered running state at: 6. Terminated at: 6. Total Execution Time: 0.
+Process 3 terminated and freed memory blocks.
+Process 6 loaded with segment table stored at physical address 1
+Process 7 loaded with segment table stored at physical address 321
+Process 8 loaded with segment table stored at physical address 609
+Insufficient memory for Process 9. Attempting memory coalescing.
+Process 9 waiting in NewJobQueue due to insufficient memory.
+Process 4 has moved to Running.
+Process ID: 4
+State: TERMINATED
+Program Counter: 1318
+Instruction Base: 1319
+Data Base: -484193754
+Memory Limit: 463
+CPU Cycles Used: 0
+Register Value: 0
+Max Memory Needed: 463
+Main Memory Base: 1296
+Total CPU Cycles Consumed: 0
+Process 4 terminated. Entered running state at: 8. Terminated at: 8. Total Execution Time: 0.
+Process 4 terminated and freed memory blocks.
+Process 9 loaded with segment table stored at physical address 1
+Process 10 loaded with segment table stored at physical address 265
+Process 9 has moved to Running.
+Process ID: 9
+State: TERMINATED
+Program Counter: 23
+Instruction Base: 24
+Data Base: -484193754
+Memory Limit: 241
+CPU Cycles Used: 0
+Register Value: 0
+Max Memory Needed: 241
+Main Memory Base: 1
+Total CPU Cycles Consumed: 0
+Process 9 terminated. Entered running state at: 10. Terminated at: 10. Total Execution Time: 0.
+Process 9 terminated and freed memory blocks.
+Process 9 has moved to Running.
+Process ID: 9
+State: TERMINATED
+Program Counter: 23
+Instruction Base: 24
+Data Base: -484193754
+Memory Limit: 241
+CPU Cycles Used: 0
+Register Value: 0
+Max Memory Needed: 241
+Main Memory Base: 1
+Total CPU Cycles Consumed: 2
+Process 9 terminated. Entered running state at: 10. Terminated at: 12. Total Execution Time: 2.
+Process 9 terminated and freed memory blocks.
+Process 7 has moved to Running.
+Process ID: 7
+State: TERMINATED
+Program Counter: 0
+Instruction Base: 1
+Data Base: 13
+Memory Limit: 30
+CPU Cycles Used: 470
+Register Value: 4
+Max Memory Needed: 5
+Main Memory Base: 321
+Total CPU Cycles Consumed: 14
+Process 7 terminated. Entered running state at: 0. Terminated at: 14. Total Execution Time: 14.
+Process 7 terminated and freed memory blocks.
+Process 8 has moved to Running.
+compute
+Process 8 has a TimeOUT interrupt and is moved to the ReadyQueue.
+Process 9 has moved to Running.
+Process ID: 9
+State: TERMINATED
+Program Counter: 23
+Instruction Base: 24
+Data Base: -484193754
+Memory Limit: 241
+CPU Cycles Used: 0
+Register Value: 0
+Max Memory Needed: 241
+Main Memory Base: 1
+Total CPU Cycles Consumed: 12
+Process 9 terminated. Entered running state at: 10. Terminated at: 22. Total Execution Time: 12.
+Process 9 terminated and freed memory blocks.
+Process 10 has moved to Running.
+Process ID: 10
+State: TERMINATED
+Program Counter: 287
+Instruction Base: 288
+Data Base: -484193754
+Memory Limit: 478
+CPU Cycles Used: 0
+Register Value: 0
+Max Memory Needed: 478
+Main Memory Base: 265
+Total CPU Cycles Consumed: 0
+Process 10 terminated. Entered running state at: 24. Terminated at: 24. Total Execution Time: 0.
+Process 10 terminated and freed memory blocks.
+Process 8 has moved to Running.
+compute
+Process 8 has a TimeOUT interrupt and is moved to the ReadyQueue.
+Process 8 has moved to Running.
+Memory violation: address -485046026 out of bounds for Process 8
+load error!
+compute
+Logical address 331 translated to physical address 337 for process 8
+stored
+Logical address 1 translated to physical address 7 for process 8
+stored
+Process 8 has a TimeOUT interrupt and is moved to the ReadyQueue.
+Process 8 has moved to Running.
+Logical address 331 translated to physical address 337 for process 8
+stored
+Memory violation: address -1 out of bounds for Process 8
+store error!
+compute
+compute
+Memory violation: address -1 out of bounds for Process 8
+store error!
+Memory violation: address -1 out of bounds for Process 8
+load error!
+Memory violation: address -1 out of bounds for Process 8
+load error!
+Process 8 issued an IOInterrupt and moved to the IOWaitingQueue.
+print
+Process 8 completed I/O and is moved to the ReadyQueue.
+Process 8 has moved to Running.
+Logical address 4 translated to physical address 10 for process 8
+loaded
+Logical address 4 translated to physical address 10 for process 8
+stored
+Process 8 has a TimeOUT interrupt and is moved to the ReadyQueue.
+Process 8 has moved to Running.
+Process ID: 8
+State: TERMINATED
+Program Counter: 631
+Instruction Base: 632
+Data Base: 942
+Memory Limit: 417
+CPU Cycles Used: 973
+Register Value: 4
+Max Memory Needed: 417
+Main Memory Base: 609
+Total CPU Cycles Consumed: 988
+Process 8 terminated. Entered running state at: 16. Terminated at: 1004. Total Execution Time: 988.
+Process 8 terminated and freed memory blocks.
+Total CPU time used: 1006.
