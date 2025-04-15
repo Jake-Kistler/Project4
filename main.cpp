@@ -84,6 +84,7 @@ bool timeout_occurred = false;
 bool memory_freed = false;
 std::queue<std::tuple<PCB, int, int, int>> io_waiting_queue; // (process, start_address, param_offset, wait_time)
 int context_switch_time, cpu_allocated;
+const int NUMBER_SEGMENTS = 6; // Number of segments per process
 
 std::unordered_map<int, int> opcode_params = {
     {1, 2}, // Compute: iterations, cycles
@@ -324,15 +325,34 @@ void load_jobs_to_memory(std::queue<PCB> &new_job_queue, std::queue<int> &ready_
         // needed to move this before I try anything 
         coalesce_memory(memory_head);
 
-        bool success = allocate_segments(memory_head,process.max_memory_needed,segment_table_start_address,segment_table_entries);
+        // We might not be reading enough data since I think we are getting an out of bounds error (or something like that)
+        const std::vector<std::vector<int>> &instructions = process_instructions[process.process_id];
+        int number_of_opcodes = static_cast<int>(instructions.size());
+        int numer_of_params = 0;
+
+        for(const auto &instr : instructions)
+        {
+            numer_of_params += static_cast<int>(instr.size()) - 1; // -1 for opcode
+        }
+
+        int total_instruction_size = number_of_opcodes + numer_of_params;
+        int data_size = total_instruction_size;
+
+        const int PCB_SIZE  = 10; // 10 integers for PCB metadata
+        const int SEGMENT_TABLE_SIZE = 1 + 2 * NUMBER_SEGMENTS; // we have up to 6 segments per process
+
+        int total_memory_needed = total_instruction_size + data_size + PCB_SIZE + SEGMENT_TABLE_SIZE;
+
+
+        bool success = allocate_segments(memory_head,total_memory_needed,segment_table_start_address,segment_table_entries);
 
         if (!success)
         {
             std::cout << "Insufficient memory for Process "<< process.process_id << ". Attempting memory coalescing." << std::endl;
 
-            
+            coalesce_memory(memory_head); // we have to try again 
 
-            success = allocate_segments(memory_head,process.max_memory_needed,segment_table_start_address,segment_table_entries);
+            success = allocate_segments(memory_head,total_memory_needed,segment_table_start_address,segment_table_entries);
 
             if (!success)
             {
@@ -353,12 +373,12 @@ void load_jobs_to_memory(std::queue<PCB> &new_job_queue, std::queue<int> &ready_
         // Print expected message
         std::cout << "Process " << process.process_id << " loaded with segment table stored at physical address " << segment_table_start_address << std::endl;
 
-        // === Update PCB fields ===
+        //  Update PCB fields 
         process.main_memory_base = segment_table_start_address;
         process.instruction_base = segment_table_entries[0].first;
         process.data_base = segment_table_entries[1].first;
 
-        // === Store PCB metadata at the segment table start address ===
+        //  Store PCB metadata at the segment table start address
         main_memory[segment_table_start_address + 0] = process.process_id;
         main_memory[segment_table_start_address + 1] = state_encoding[process.state];
         main_memory[segment_table_start_address + 2] = process.program_counter;
@@ -370,7 +390,7 @@ void load_jobs_to_memory(std::queue<PCB> &new_job_queue, std::queue<int> &ready_
         main_memory[segment_table_start_address + 8] = process.max_memory_needed;
         main_memory[segment_table_start_address + 9] = process.main_memory_base;
 
-        // === Store segment table size + entries ===
+        //  Store segment table size + entries
         int segment_table_size = static_cast<int>(segment_table_entries.size());
         main_memory[segment_table_start_address + 10] = segment_table_size;
 
@@ -381,9 +401,9 @@ void load_jobs_to_memory(std::queue<PCB> &new_job_queue, std::queue<int> &ready_
             main_memory[table_write_index++] = entry.second;
         }
 
-        // === Store instructions ===
+        //  Store instructions 
         std::vector<std::vector<int>> instrs = process_instructions[process.process_id];
-        int write_index = process.instruction_base;
+        int write_index = segment_table_entries[0].first;
 
         // First store opcodes
         for (const auto &instr : instrs)
