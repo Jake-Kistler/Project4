@@ -4,7 +4,6 @@
 #include <string>
 #include <unordered_map>
 #include <vector>
-#include <vector>
 #include <utility>
 #include "MemoryBlock.h"
 
@@ -59,8 +58,8 @@ struct MemoryBlock;
 int allocate_memory(MemoryBlock *&memory_head, int process_id, int size);
 void free_memory(MemoryBlock *&memory_head, int *main_memory, int process_id);
 void coalesce_memory(MemoryBlock *&memory_head);
-void load_jobs_to_memory(std::queue<PCB> &new_job_queue,std::queue<int> &ready_queue, int *main_memory,MemoryBlock *&memory_head);
-void execute_cpu(int start_address, int *main_memory, MemoryBlock *&memory_head,std::queue<PCB> &new_job_queue, std::queue<int> &ready_queue);
+void load_jobs_to_memory(std::queue<PCB> &new_job_queue, std::queue<int> &ready_queue, int *main_memory, MemoryBlock *&memory_head);
+void execute_cpu(int start_address, int *main_memory, MemoryBlock *&memory_head, std::queue<PCB> &new_job_queue, std::queue<int> &ready_queue);
 void check_io_waiting_queue(std::queue<int> &ready_queue, int *main_memory);
 bool allocate_segments(MemoryBlock *&memory_head, int total_memory_needed, int &segment_table_start_address, std::vector<std::pair<int, int>> &segment_table_entries);
 int translate_logical_to_physical(int logical_address, const PCB &process, int *main_memory);
@@ -83,7 +82,7 @@ struct PCB
 int global_clock = 0;
 bool timeout_occurred = false;
 bool memory_freed = false;
-std::queue<std::tuple<PCB, int, int, int>>io_waiting_queue; // (process, start_address, param_offset, wait_time)
+std::queue<std::tuple<PCB, int, int, int>> io_waiting_queue; // (process, start_address, param_offset, wait_time)
 int context_switch_time, cpu_allocated;
 
 std::unordered_map<int, int> opcode_params = {
@@ -94,11 +93,14 @@ std::unordered_map<int, int> opcode_params = {
 };
 
 // Key: state, Value: encoding
-std::unordered_map<std::string, int> state_encoding = {{"NEW", 1},
-                                                       {"READY", 2},
-                                                       {"RUNNING", 3},
-                                                       {"TERMINATED", 4},
-                                                       {"IOWAITING", 5}};
+std::unordered_map<std::string, int> state_encoding = 
+{
+    {"NEW", 1},
+    {"READY", 2},
+    {"RUNNING", 3},
+     {"TERMINATED", 4},
+     {"IOWAITING", 5}
+    };
 
 // Key: processID, Value: instructions
 std::unordered_map<int, std::vector<std::vector<int>>> process_instructions;
@@ -186,7 +188,7 @@ int main(int argc, char **argv)
             int start_address = ready_queue.front();
             ready_queue.pop();
 
-            execute_cpu(start_address, main_memory, memory_head, new_job_queue,ready_queue);
+            execute_cpu(start_address, main_memory, memory_head, new_job_queue, ready_queue);
 
             // If a timeout occurred, re-add the process
             if (timeout_occurred)
@@ -294,7 +296,7 @@ void coalesce_memory(MemoryBlock *&memory_head)
         MemoryBlock *next = current->next;
 
         // Merge only if both and free AND adjacent in memory
-        if (current->process_id == -1 && next->process_id == -1 &&current->start_address + current->size == next->start_address)
+        if (current->process_id == -1 && next->process_id == -1 && current->start_address + current->size == next->start_address)
         {
             current->size += next->size;
             current->next = next->next;
@@ -306,10 +308,7 @@ void coalesce_memory(MemoryBlock *&memory_head)
     }
 }
 
-void load_jobs_to_memory(std::queue<PCB> &new_job_queue,
-                         std::queue<int> &ready_queue,
-                         int *main_memory,
-                         MemoryBlock *&memory_head)
+void load_jobs_to_memory(std::queue<PCB> &new_job_queue, std::queue<int> &ready_queue,int *main_memory,MemoryBlock *&memory_head)
 {
     int new_job_queue_size = static_cast<int>(new_job_queue.size());
     std::queue<PCB> temp_queue;
@@ -330,9 +329,7 @@ void load_jobs_to_memory(std::queue<PCB> &new_job_queue,
 
         if (!success)
         {
-            std::cout << "Insufficient memory for Process "
-                      << process.process_id
-                      << ". Attempting memory coalescing." << std::endl;
+            std::cout << "Insufficient memory for Process "<< process.process_id << ". Attempting memory coalescing." << std::endl;
 
             coalesce_memory(memory_head);
 
@@ -344,9 +341,7 @@ void load_jobs_to_memory(std::queue<PCB> &new_job_queue,
 
             if (!success)
             {
-                std::cout << "Process " << process.process_id
-                          << " waiting in NewJobQueue due to insufficient memory."
-                          << std::endl;
+                std::cout << "Process " << process.process_id << " waiting in NewJobQueue due to insufficient memory." << std::endl;
 
                 temp_queue.push(process);
 
@@ -361,9 +356,7 @@ void load_jobs_to_memory(std::queue<PCB> &new_job_queue,
         }
 
         // Print expected message
-        std::cout << "Process " << process.process_id
-                  << " loaded with segment table stored at physical address "
-                  << segment_table_start_address << std::endl;
+        std::cout << "Process " << process.process_id << " loaded with segment table stored at physical address " << segment_table_start_address << std::endl;
 
         // === Update PCB fields ===
         process.main_memory_base = segment_table_start_address;
@@ -591,9 +584,9 @@ void execute_cpu(int start_address, int *main_memory, MemoryBlock *&memory_head,
     std::cout << "Main Memory Base: " << process.main_memory_base << std::endl;
     std::cout << "Total CPU Cycles Consumed: " << total_execution_time << std::endl;
 
-    std::cout << "Process " << process.process_id<< " terminated. Entered running state at: "<< process_start_times[process.process_id]<< ". Terminated at: " << global_clock<< ". Total Execution Time: " << total_execution_time << "." << std::endl;
+    std::cout << "Process " << process.process_id << " terminated. Entered running state at: " << process_start_times[process.process_id] << ". Terminated at: " << global_clock << ". Total Execution Time: " << total_execution_time << "." << std::endl;
 
-    std::cout << "Process " << process.process_id<< " terminated and freed memory blocks." << std::endl;
+    std::cout << "Process " << process.process_id << " terminated and freed memory blocks." << std::endl;
 }
 
 void check_io_waiting_queue(std::queue<int> &ready_queue, int *main_memory)
@@ -629,16 +622,13 @@ void check_io_waiting_queue(std::queue<int> &ready_queue, int *main_memory)
             process.state = "READY";
             main_memory[start_address + 1] = state_encoding[process.state];
 
-            std::cout << "Process " << process.process_id
-                      << " completed I/O and is moved to the ReadyQueue."
-                      << std::endl;
+            std::cout << "Process " << process.process_id<< " completed I/O and is moved to the ReadyQueue."<< std::endl;
 
             ready_queue.push(start_address);
         }
         else
         {
-            io_waiting_queue.push(std::make_tuple(process, start_address,
-                                                  wait_time, time_entered_io));
+            io_waiting_queue.push(std::make_tuple(process, start_address, wait_time, time_entered_io));
         }
     }
 }
@@ -680,7 +670,7 @@ void free_memory(MemoryBlock *&memory_head, int start_address, int size)
     coalesce_memory(memory_head);
 }
 
-bool allocate_segments(MemoryBlock *&memory_head,int total_memory_needed,int &segment_table_start_address,std::vector<std::pair<int, int>> &segment_table_entries)
+bool allocate_segments(MemoryBlock *&memory_head, int total_memory_needed, int &segment_table_start_address, std::vector<std::pair<int, int>> &segment_table_entries)
 {
     // Step 1: Coalesce memory before allocation attempt
     coalesce_memory(memory_head);
@@ -796,17 +786,17 @@ int translate_logical_to_physical(int logical_address, const PCB &process, int *
     int segment_count = main_memory[process.main_memory_base + 10];
     int logical_tracker = 0;
 
-    for(int i = 0; i < segment_count; i++)
+    for (int i = 0; i < segment_count; i++)
     {
         int segment_start = main_memory[segment_table_start + 2 * i];
         int segment_size = main_memory[segment_table_start + 2 * i + 1];
 
-        if(logical_address >= logical_tracker && logical_address < logical_tracker + segment_size)
+        if (logical_address >= logical_tracker && logical_address < logical_tracker + segment_size)
         {
             int off_set = logical_address - logical_tracker;
             int physical_address = segment_start + off_set;
 
-            std::cout << "Logical address " << logical_address << " translated to physical address " << physical_address << " for process " << process.process_id  << std::endl;
+            std::cout << "Logical address " << logical_address << " translated to physical address " << physical_address << " for process " << process.process_id << std::endl;
             return physical_address;
         }
 
@@ -816,4 +806,3 @@ int translate_logical_to_physical(int logical_address, const PCB &process, int *
     std::cout << "Memory violation: address " << logical_address << " out of bounds for Process " << process.process_id << std::endl;
     return -1; // Memory violation
 }
-
