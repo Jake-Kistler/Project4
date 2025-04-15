@@ -64,6 +64,7 @@ void check_io_waiting_queue(std::queue<int> &ready_queue, int *main_memory);
 bool allocate_segments(MemoryBlock *&memory_head, int total_memory_needed, int &segment_table_start_address, std::vector<std::pair<int, int>> &segment_table_entries);
 int translate_logical_to_physical(int logical_address, const PCB &process, int *main_memory);
 void free_memory(MemoryBlock *&memory_head, int start_address, int size);
+void copy_logical_to_physical_memory(int *main_memory, const int *logical_memory, int total_size, const std::vector<std::pair<int, int>> &segments);
 
 struct PCB
 {
@@ -820,4 +821,25 @@ int translate_logical_to_physical(int logical_address, const PCB &process, int *
 
     std::cout << "Memory violation: address " << logical_address << " out of bounds for Process " << process.process_id << std::endl;
     return -1; // Memory violation
+}
+
+// Need a new helper that can copy logical memory into main memory
+void copy_logical_to_physical_memory(int *main_memory, const int *logical_memory, int total_size, const std::vector<std::pair<int,int>> &segments)
+{
+    int logical_index = 0;
+    for(const auto &seg : segments)
+    {
+        int physical_start = seg.first;
+        int segment_size = seg.second;
+
+        for(int i = 0; i < segment_size && logical_index < total_size; i++)
+        {
+            main_memory[physical_start + i] = logical_memory[logical_index++];
+        }
+    }
+
+    if(logical_index < total_size)
+    {
+        std::cout << "Error: not enough space in allocated segments to hold process." << std::endl;
+    }
 }
