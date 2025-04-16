@@ -139,8 +139,7 @@ int main(int argc, char **argv)
         PCB process;
         int num_instructions;
 
-        std::cin >> process.process_id >> process.max_memory_needed >>
-            num_instructions;
+        std::cin >> process.process_id >> process.max_memory_needed >> num_instructions;
 
         process.state = "NEW";
         process.memory_limit = process.max_memory_needed;
@@ -154,6 +153,7 @@ int main(int argc, char **argv)
         {
             std::vector<int> current_instruction;
             int opcode;
+
             std::cin >> opcode;
             current_instruction.push_back(opcode);
 
@@ -163,6 +163,7 @@ int main(int argc, char **argv)
             {
                 int param;
                 std::cin >> param;
+
                 current_instruction.push_back(param);
             }
             instructions.push_back(current_instruction);
@@ -207,8 +208,7 @@ int main(int argc, char **argv)
 
         if (memory_freed)
         {
-            load_jobs_to_memory(new_job_queue, ready_queue, main_memory,
-                                memory_head);
+            load_jobs_to_memory(new_job_queue, ready_queue, main_memory, memory_head);
             memory_freed = false;
         }
 
@@ -259,6 +259,7 @@ int allocate_memory(MemoryBlock *&memory_head, int process_id, int size)
 
                 current->start_address += size;
                 current->size -= size;
+
                 return allocated_address;
             }
             return allocated_address;
@@ -320,29 +321,28 @@ void load_jobs_to_memory(std::queue<PCB> &new_job_queue, std::queue<int> &ready_
         PCB process = new_job_queue.front();
         new_job_queue.pop();
 
-        int segment_table_start_address;
-        std::vector<std::pair<int, int>> segment_table_entries;
-
-        // needed to move this before I try anything 
-        coalesce_memory(memory_head);
+         // needed to move this before I try anything 
+         coalesce_memory(memory_head);
 
         // We might not be reading enough data since I think we are getting an out of bounds error (or something like that)
         const std::vector<std::vector<int>> &instructions = process_instructions[process.process_id];
         int number_of_opcodes = static_cast<int>(instructions.size());
         int numer_of_params = 0;
 
-        for(const auto &instr : instructions)
+        for(int j = 0; j < instructions.size(); j++)
         {
-            numer_of_params += static_cast<int>(instr.size()) - 1; // -1 for opcode
+            numer_of_params += static_cast<int>(instructions[j].size()) - 1; // skipping the opcode here
         }
 
         int total_instruction_size = number_of_opcodes + numer_of_params;
-        int data_size = total_instruction_size;
 
         const int PCB_SIZE  = 10; // 10 integers for PCB metadata
         const int SEGMENT_TABLE_SIZE = 1 + 2 * NUMBER_SEGMENTS; // we have up to 6 segments per process
 
-        int total_memory_needed = total_instruction_size + data_size + PCB_SIZE + SEGMENT_TABLE_SIZE;
+        int total_memory_needed =  PCB_SIZE + SEGMENT_TABLE_SIZE + total_instruction_size;
+
+        int segment_table_start_address;
+        std::vector<std::pair<int, int>> segment_table_entries;
 
 
         bool success = allocate_segments(memory_head,total_memory_needed,segment_table_start_address,segment_table_entries);
@@ -374,55 +374,50 @@ void load_jobs_to_memory(std::queue<PCB> &new_job_queue, std::queue<int> &ready_
         // Print expected message
         std::cout << "Process " << process.process_id << " loaded with segment table stored at physical address " << segment_table_start_address << std::endl;
 
-        //  Update PCB fields 
-        process.main_memory_base = segment_table_start_address;
-        process.instruction_base = segment_table_entries[0].first;
-        process.data_base = segment_table_entries[1].first;
+        // time to build the logical array
+        int *logical_memory = new int[total_memory_needed];
+        int logical_index = 0;
 
-        //  Store PCB metadata at the segment table start address
-        main_memory[segment_table_start_address + 0] = process.process_id;
-        main_memory[segment_table_start_address + 1] = state_encoding[process.state];
-        main_memory[segment_table_start_address + 2] = process.program_counter;
-        main_memory[segment_table_start_address + 3] = process.instruction_base;
-        main_memory[segment_table_start_address + 4] = process.data_base;
-        main_memory[segment_table_start_address + 5] = process.memory_limit;
-        main_memory[segment_table_start_address + 6] = process.cpu_cycles_used;
-        main_memory[segment_table_start_address + 7] = process.register_value;
-        main_memory[segment_table_start_address + 8] = process.max_memory_needed;
-        main_memory[segment_table_start_address + 9] = process.main_memory_base;
+        logical_memory[logical_index++] = segment_table_entries.size() * 2; // segment table size
 
-        //  Store segment table size + entries
-        int segment_table_size = static_cast<int>(segment_table_entries.size());
-        main_memory[segment_table_start_address + 10] = segment_table_size;
-
-        int table_write_index = segment_table_start_address + 11;
-        for (const auto &entry : segment_table_entries)
+        for(int j = 0; j < segment_table_entries.size(); j++)
         {
-            main_memory[table_write_index++] = entry.first;
-            main_memory[table_write_index++] = entry.second;
+            logical_memory[logical_index++] = segment_table_entries[j].first; // start address
+            logical_memory[logical_index++] = segment_table_entries[j].second; // size
         }
 
-        //  Store instructions 
-        std::vector<std::vector<int>> instrs = process_instructions[process.process_id];
-        int write_index = segment_table_entries[0].first;
+        //  Store PCB metadata in logical memory
+        logical_memory[logical_index++] = process.process_id;
+        logical_memory[logical_index++] = state_encoding[process.state];
+        logical_memory[logical_index++] = process.program_counter;
+        logical_memory[logical_index++] = segment_table_entries[0].first + SEGMENT_TABLE_SIZE + 1;
+        logical_memory[logical_index++] = logical_memory[logical_index - 1] + number_of_opcodes;
+        logical_memory[logical_index++] = process.max_memory_needed;
+        logical_memory[logical_index++] = process.cpu_cycles_used;
+        logical_memory[logical_index++] = process.register_value;
+        logical_memory[logical_index++] = process.max_memory_needed;
+        logical_memory[logical_index++] = segment_table_entries[0].first;
 
-        // First store opcodes
-        for (const auto &instr : instrs)
+        // now to store the opcodes and parameters
+        for(int j = 0; j < instructions.size(); j++)
         {
-            main_memory[write_index++] = instr[0];
+            logical_memory[logical_index++] = instructions[j][0]; // opcode
         }
 
-        // Then store parameters
-        for (const auto &instr : instrs)
+        for(int j = 0; j < instructions.size(); j++)
         {
-            for (int k = 1; k < static_cast<int>(instr.size()); k++)
+            for(int p = 1; p < instructions[j].size(); p++)
             {
-                main_memory[write_index++] = instr[k];
+                logical_memory[logical_index++] = instructions[j][p]; // parameters
             }
         }
 
+        // copy logical memory into the segments 
+        copy_logical_to_physical_memory(main_memory, logical_memory, total_memory_needed, segment_table_entries);
+        delete[] logical_memory;
+
         // Add to ready queue
-        ready_queue.push(process.main_memory_base);
+        ready_queue.push(segment_table_entries[0].first);
     }
 
     // Return any deferred jobs back to the new job queue
